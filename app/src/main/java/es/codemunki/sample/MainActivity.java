@@ -2,14 +2,17 @@ package es.codemunki.sample;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements MessageFragment.OnFragmentInteractionListener {
     public final static String EXTRA_MESSAGE = "es.codemunki.sample.MESSAGE";
 
     @Override
@@ -49,10 +52,18 @@ public class MainActivity extends Activity {
     }
 
     public void sendMessage(View view) {
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
+        // Get the message the user has entered
         EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+
+        // Create an instance of the fragment
+        MessageFragment messageFragment = MessageFragment.newInstance(message);
+        // Add the fragment to the container
+        getFragmentManager().beginTransaction().add(R.id.message_container, messageFragment).commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

@@ -34,9 +34,6 @@ public class MessageFragment extends Fragment {
 
         if (getArguments() != null) {
             mDisplayString = getArguments().getString(ARG_DISPLAY_MESSAGE);
-
-            TextView display = (TextView) getView().findViewById(R.id.display_message);
-            display.setText(mDisplayString);
         }
     }
 
@@ -62,6 +59,14 @@ public class MessageFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        TextView display = (TextView) getView().findViewById(R.id.display_message);
+        display.setText(mDisplayString);
     }
 
     /**
